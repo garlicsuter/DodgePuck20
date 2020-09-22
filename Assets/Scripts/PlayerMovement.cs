@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public int speed = 10;
     public float xRange = 9.0f;
-    public float yRange = 6.0f;
+    public float yRange = 3.7f;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +35,21 @@ public class PlayerMovement : MonoBehaviour
         if(transform.position.x > xRange)
         {
             transform.position = new Vector2(xRange, transform.position.y);
+        }
+
+        if (transform.position.x < -xRange)
+        {
+            transform.position = new Vector2(-xRange, transform.position.y);
+        }
+
+        if (transform.position.y > yRange)
+        {
+            transform.position = new Vector2(transform.position.x, yRange);
+        }
+
+        if (transform.position.y < -yRange)
+        {
+            transform.position = new Vector2(transform.position.x, -yRange);
         }
     }
 }
