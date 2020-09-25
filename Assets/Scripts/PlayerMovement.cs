@@ -7,10 +7,19 @@ public class PlayerMovement : MonoBehaviour
     public int speed = 10;
     public float xRange = 9.0f;
     public float yRange = 3.7f;
+    public GameObject Puck;
+    public GameObject Blocky;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        SpawnPuck();
+    }
+
+    void SpawnPuck()
+    {
+        Debug.Log(Random.Range(1.0f,10.0f));
+        Instantiate(Puck, new Vector2(Random.Range(-6.0f, 6.0f), Random.Range(-3.7f, 3.7f)), Quaternion.identity);
     }
 
     // Update is called once per frame
