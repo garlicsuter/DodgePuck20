@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //SpawnPuck();
+        SpawnPuck();
 
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
@@ -38,6 +38,18 @@ public class PlayerMovement : MonoBehaviour
         //    Debug.Log("D was pressed");
         //    transform.Translate(Vector2.right * speed * Time.deltaTime);
         //}
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        //if it's tagged as "Blocky"...
+        if (collision.gameObject.tag == "Blocky")
+        {
+            //add 5 to score
+            Debug.Log("Hit Blocky");
+        }
+
+        //if it's tagged as "Puck"...
     }
 
     private void LateUpdate()
