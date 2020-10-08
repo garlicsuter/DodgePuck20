@@ -9,11 +9,15 @@ public class PlayerMovement : MonoBehaviour
     public float yRange = 3.7f;
     public GameObject Puck;
     public GameObject Blocky;
+    public int Score = 0;
+    public GameObject scoreText;
+    public GameObject gameOverText;
 
     // Start is called before the first frame update
     void Start()
     {
         SpawnPuck();
+        SpawnBlocky();
     }
 
     void SpawnPuck()
@@ -22,10 +26,14 @@ public class PlayerMovement : MonoBehaviour
         Instantiate(Puck, new Vector2(Random.Range(-6.0f, 6.0f), Random.Range(-3.7f, 3.7f)), Quaternion.identity);
     }
 
+    void SpawnBlocky()
+    {
+        Instantiate(Blocky, new Vector2(Random.Range(-xRange, xRange), Random.Range(-yRange, yRange)), Quaternion.identity);
+    }
     // Update is called once per frame
     void Update()
     {
-        SpawnPuck();
+        //SpawnPuck();
 
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
@@ -40,13 +48,17 @@ public class PlayerMovement : MonoBehaviour
         //}
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         //if it's tagged as "Blocky"...
         if (collision.gameObject.tag == "Blocky")
         {
             //add 5 to score
-            Debug.Log("Hit Blocky");
+            Score += 5;
+            Debug.Log(Score);
+            Destroy(collision.gameObject);
+            SpawnBlocky();
+            SpawnPuck();
         }
 
         //if it's tagged as "Puck"...
