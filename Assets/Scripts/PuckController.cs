@@ -12,7 +12,7 @@ public class PuckController : MonoBehaviour
     void Start()
     {
         moveDirection = direction[Random.Range(0,4)];
-        Debug.Log(moveDirection);
+        //Debug.Log(moveDirection);
     }
 
     // Update is called once per frame

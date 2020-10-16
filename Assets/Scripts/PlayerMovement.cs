@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     void SpawnPuck()
     {
-        Debug.Log(Random.Range(1.0f,10.0f));
+        //Debug.Log(Random.Range(1.0f,10.0f));
         Instantiate(Puck, new Vector2(Random.Range(-6.0f, 6.0f), Random.Range(-3.7f, 3.7f)), Quaternion.identity);
     }
 
@@ -54,14 +55,27 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Blocky")
         {
             //add 5 to score
-            Score += 5;
             Debug.Log(Score);
             Destroy(collision.gameObject);
             SpawnBlocky();
             SpawnPuck();
+            scoreText.GetComponent<ScoreKeeper>().UpdateScore();
         }
 
-        //if it's tagged as "Puck"...
+        if (collision.gameObject.tag == "Puck")
+        {
+            //if it's tagged as "Puck"...
+            gameOverText.SetActive(true);
+            Time.timeScale = 0;
+        }
+
+
+    }
+
+    public void Reset()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1;
     }
 
     private void LateUpdate()
